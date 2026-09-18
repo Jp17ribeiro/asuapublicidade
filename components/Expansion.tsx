@@ -10,13 +10,16 @@ import {
 import { agencyStats, portfolioCategories, portfolioItems, type PortfolioCategory, type PortfolioItem } from "@/data/portfolio";
 import { instagram, messages, whatsapp } from "@/data/content";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const imagePath = (path: string) => path.startsWith("/") ? `${basePath}${path}` : path;
+
 function Intro({ eyebrow, title, text }: { eyebrow: string; title: React.ReactNode; text?: string }) {
   return <div className="exp-intro"><span className="exp-eyebrow"><i />{eyebrow}</span><h2>{title}</h2>{text && <p>{text}</p>}</div>;
 }
 
 function ProjectVisual({ item, priority = false }: { item: PortfolioItem; priority?: boolean }) {
   return <div className={`exp-project-visual exp-project-${item.visual || "default"}`}>
-    {item.image ? <Image src={item.image} alt={`Trabalho de ${item.category.toLowerCase()} para ${item.title}`} fill sizes="(max-width: 700px) 100vw, 50vw" priority={priority} className="exp-project-image" /> :
+    {item.image ? <Image src={imagePath(item.image)} alt={`Trabalho de ${item.category.toLowerCase()} para ${item.title}`} fill sizes="(max-width: 700px) 100vw, 50vw" priority={priority} className="exp-project-image" /> :
       <div className="exp-project-editorial" aria-label={`Apresentação editorial do projeto ${item.title}`}>
         <span>PROJETO / {item.segment.toUpperCase()}</span>
         <strong>{item.title}</strong>
@@ -143,5 +146,5 @@ export function PortfolioProof() {
 
 export function InstagramShowcase() {
   const withImages = portfolioItems.filter(item => item.image);
-  return <section className="section exp-instagram"><div className="container exp-instagram-layout"><div><Intro eyebrow="O QUE ESTAMOS CRIANDO" title={<>O trabalho continua <span>fora desta página.</span></>} text="Acompanhe projetos, identidades, campanhas e conteúdos desenvolvidos pela A Sua Publicidade." /><a href={instagram} target="_blank" rel="noopener noreferrer" className="button button-outline">VER MAIS NO INSTAGRAM <ArrowUpRight size={18} /></a><span className="exp-instagram-handle"><Instagram size={17} /> @asuapublicidade</span></div>{withImages.length > 0 ? <div className="exp-instagram-feed">{withImages.slice(0, 4).map(item => <div key={item.title}><Image src={item.image} alt={`Projeto ${item.title}`} fill sizes="(max-width: 700px) 50vw, 220px" /></div>)}</div> : <div className="exp-instagram-panel"><Instagram size={34} strokeWidth={1.4} /><span>PORTFÓLIO EM MOVIMENTO</span><strong>@asuapublicidade</strong><small>Projetos, campanhas e conteúdo em um só lugar.</small></div>}</div></section>;
+  return <section className="section exp-instagram"><div className="container exp-instagram-layout"><div><Intro eyebrow="O QUE ESTAMOS CRIANDO" title={<>O trabalho continua <span>fora desta página.</span></>} text="Acompanhe projetos, identidades, campanhas e conteúdos desenvolvidos pela A Sua Publicidade." /><a href={instagram} target="_blank" rel="noopener noreferrer" className="button button-outline">VER MAIS NO INSTAGRAM <ArrowUpRight size={18} /></a><span className="exp-instagram-handle"><Instagram size={17} /> @asuapublicidade</span></div>{withImages.length > 0 ? <div className="exp-instagram-feed">{withImages.slice(0, 4).map(item => <div key={item.title}><Image src={imagePath(item.image)} alt={`Projeto ${item.title}`} fill sizes="(max-width: 700px) 50vw, 220px" /></div>)}</div> : <div className="exp-instagram-panel"><Instagram size={34} strokeWidth={1.4} /><span>PORTFÓLIO EM MOVIMENTO</span><strong>@asuapublicidade</strong><small>Projetos, campanhas e conteúdo em um só lugar.</small></div>}</div></section>;
 }

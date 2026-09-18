@@ -9,7 +9,7 @@ import {
   Palette, Play, Plus, Sparkles, Target, X,
 } from "lucide-react";
 import {
-  brandingPlans, faqs, instagram, messages, process, services, sitePlans,
+  brandingPlans, faqs, instagram, messages, process as agencyProcess, services, sitePlans,
   socialPlans, whatsapp,
 } from "@/data/content";
 import {
@@ -17,6 +17,8 @@ import {
   InstagramShowcase, PortfolioExperience, PortfolioProof, Segments,
   SocialStrategy, WebPillar,
 } from "@/components/Expansion";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const navigation = [
   { label: "Início", href: "#inicio" },
@@ -91,7 +93,7 @@ function Header() {
     <header className={`site-header ${scrolled || open ? "is-scrolled" : ""}`}>
       <div className="nav-shell container">
         <a className="logo-wrap" href="#inicio" aria-label="A Sua Publicidade, voltar ao início" onClick={() => setOpen(false)}>
-          <Image src="/images/logo-horizontal.png" width={1214} height={228} alt="A Sua Publicidade" priority />
+          <Image src={`${basePath}/images/logo-horizontal.png`} width={1214} height={228} alt="A Sua Publicidade" priority />
         </a>
         <nav className="desktop-nav" aria-label="Navegação principal">
           {navigation.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}
@@ -234,7 +236,7 @@ function WebPlans() {
 function Process() {
   return <section id="processo" className="section process-section"><div className="container">
     <SectionHead number="06 /" eyebrow="COMO TRABALHAMOS" title={<>Um processo claro. <span className="muted-title">Do primeiro contato ao próximo passo.</span></>} />
-    <div className="process-list">{process.map(step => <Reveal key={step.number} className="process-step"><span className="process-number">{step.number}</span><h3>{step.title}</h3><p>{step.text}</p><span className="process-dot" /></Reveal>)}</div>
+    <div className="process-list">{agencyProcess.map(step => <Reveal key={step.number} className="process-step"><span className="process-number">{step.number}</span><h3>{step.title}</h3><p>{step.text}</p><span className="process-dot" /></Reveal>)}</div>
   </div></section>;
 }
 
@@ -268,7 +270,7 @@ function FAQ() {
 
 function Footer() {
   return <footer className="footer"><div className="container">
-    <div className="footer-top"><div className="footer-brand"><a className="logo-wrap footer-logo" href="#inicio" aria-label="A Sua Publicidade, voltar ao início"><Image src="/images/logo-horizontal.png" width={1214} height={228} alt="A Sua Publicidade" loading="lazy" /></a><p>Marketing, design e tecnologia para marcas que querem crescer.</p></div>
+    <div className="footer-top"><div className="footer-brand"><a className="logo-wrap footer-logo" href="#inicio" aria-label="A Sua Publicidade, voltar ao início"><Image src={`${basePath}/images/logo-horizontal.png`} width={1214} height={228} alt="A Sua Publicidade" loading="lazy" /></a><p>Marketing, design e tecnologia para marcas que querem crescer.</p></div>
       <div className="footer-links"><span>NAVEGUE</span><nav aria-label="Navegação do rodapé"><a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#sites">Sites</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></nav></div>
       <div className="footer-links"><span>CONTATO</span><WaLink message={messages.general}>+55 61 99892-6801</WaLink><a href={instagram} target="_blank" rel="noopener noreferrer">Instagram <ArrowUpRight size={14} /></a><span className="footer-location">Cidade Ocidental — GO</span></div>
     </div>

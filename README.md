@@ -23,6 +23,12 @@ npm run build
 
 Importe esta pasta como projeto Next.js. Configure `NEXT_PUBLIC_SITE_URL` com o domínio público final, sem barra no fim. Isso ativa a URL canônica e as URLs absolutas de compartilhamento. O arquivo `.env.example` mostra o formato.
 
+## Publicar no GitHub Pages
+
+O endereço público é `https://jp17ribeiro.github.io/asuapublicidade/`. O GitHub Pages usa a pasta raiz da branch `main`, por isso ela inclui o `index.html` e os arquivos estáticos gerados.
+
+Depois de alterar o site, execute `npm run build:pages`, confira o resultado e envie os arquivos alterados para a branch `main`. Esse comando gera a versão para o subdiretório `/asuapublicidade/`, copia os arquivos publicados para a raiz e cria `.nojekyll`, necessário para servir a pasta `_next`.
+
 ## Editar conteúdo
 
 - Serviços, perguntas frequentes, pacotes, preços e mensagens do WhatsApp: `data/content.ts`.
